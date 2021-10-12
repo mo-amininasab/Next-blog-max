@@ -5,11 +5,10 @@ import Image from 'next/image';
 import classes from './PostItem.module.css';
 
 interface Props {
-  post: JSX.Element;
+  post: any;
 }
 
 const PostItem: React.FC<Props> = ({ post }) => {
-  // @ts-ignore
   const { title, image, excerpt, date, slug } = post;
   const formattedDate = new Date(date).toLocaleDateString('en-US', {
     day: 'numeric',
@@ -22,7 +21,13 @@ const PostItem: React.FC<Props> = ({ post }) => {
       <Link href={`/posts/${slug}`}>
         <a>
           <div className={classes.image}>
-            <Image src={`/images/posts/${slug}/${image}`} alt={title} width={300} height={200}/>
+            <Image
+              src={`/images/posts/${slug}/${image}`}
+              alt={title}
+              width={300}
+              height={200}
+              layout="responsive"
+            />
           </div>
           <div className={classes.content}>
             <h3>{title}</h3>

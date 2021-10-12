@@ -4,16 +4,16 @@ import PostItem from './PostItem';
 import classes from './PostsGrid.module.css';
 
 interface Props {
-  posts: JSX.Element[];
+  posts: any[];
 }
 
 const PostsGrid: React.FC<Props> = ({ posts }) => {
+  
   return (
     <ul className={classes.grid}>
-      {posts.map((post) => {
-        // @ts-ignore
-        <PostItem key={post.slug} post={post} />;
-      })}
+      {posts.map((post) => (
+        <PostItem key={post.slug} post={post} />
+      ))}
     </ul>
   );
 };

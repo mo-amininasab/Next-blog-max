@@ -5,7 +5,7 @@ import Hero from '../components/Hero';
 
 interface Props {}
 
-// @ts-ignore
+
 const DUMMY_POSTS = [
   {
     slug: 'getting-started-with-nextjs',
@@ -46,9 +46,7 @@ const HomePage: NextPage<Props> = () => {
     <Fragment>
       <Hero />
       <FeaturedPosts
-      // @ts-ignore
         posts={
-          // @ts-ignore
           DUMMY_POSTS
         }
       />

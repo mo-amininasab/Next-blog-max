@@ -1,4 +1,5 @@
 import { NextPage } from 'next'
+import ContactForm from '../components/contact/ContactForm'
 
 interface Props {
 
@@ -6,9 +7,7 @@ interface Props {
 
 const ContactPage: NextPage<Props> = () => {
   return (
-    <div>
-      
-    </div>
+    <ContactForm />
   )
 }
 

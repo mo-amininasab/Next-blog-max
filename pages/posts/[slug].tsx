@@ -1,4 +1,5 @@
 import { GetStaticProps, NextPage } from 'next'
+import PostContent from '../../components/posts/post-detail/PostContent'
 
 interface Props {
 
@@ -8,18 +9,16 @@ const PostDetailPage: NextPage<Props> = () => {
 
 
   return (
-    <div>
-      
-    </div>
+    <PostContent />
   )
 }
 
-export const getStaticProps: GetStaticProps<Props> = async (context) => {
+// export const getStaticProps: GetStaticProps<Props> = async (context) => {
 
 
-  return {
-    props: {}
-  }
-}
+//   return {
+//     props: {}
+//   }
+// }
 
 export default PostDetailPage

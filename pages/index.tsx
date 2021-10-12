@@ -25,7 +25,7 @@ export const getStaticProps: GetStaticProps<Props> = async (context) => {
     props: {
       posts: featuredPosts,
     },
-    // revalidate // ! no needed in this situation 
+    // revalidate // ! no needed in this situation.
   };
 };
 

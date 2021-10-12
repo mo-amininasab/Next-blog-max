@@ -1,4 +1,6 @@
 import { NextPage } from 'next'
+import { Fragment } from 'react'
+import Hero from '../components/Hero'
 
 interface Props {
 
@@ -6,9 +8,9 @@ interface Props {
 
 const HomePage: NextPage<Props> = () => {
   return (
-    <div>
-      
-    </div>
+    <Fragment>
+      <Hero />
+    </Fragment>
   )
 }
 

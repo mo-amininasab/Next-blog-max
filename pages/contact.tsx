@@ -4,7 +4,7 @@ interface Props {
 
 }
 
-const HomePage: NextPage<Props> = () => {
+const ContactPage: NextPage<Props> = () => {
   return (
     <div>
       
@@ -12,4 +12,4 @@ const HomePage: NextPage<Props> = () => {
   )
 }
 
-export default HomePage
+export default ContactPage

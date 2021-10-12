@@ -1,11 +1,13 @@
-import { NextPage } from 'next';
-import Image from 'next/image';
+import React from 'react'
+import Image from 'next/image'
 
 import classes from './Hero.module.css';
 
-interface Props {}
+interface Props {
+  
+}
 
-const Hero: NextPage<Props> = () => {
+const Hero: React.FC<Props> = (props) => {
   return (
     <section className={classes.hero}>
       <div className={classes.image}>
@@ -22,7 +24,7 @@ const Hero: NextPage<Props> = () => {
         Angular or React.
       </p>
     </section>
-  );
-};
+  )
+}
 
-export default Hero;
+export default Hero

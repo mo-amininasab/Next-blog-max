@@ -54,6 +54,9 @@ const ContactForm: React.FC<Props> = (props) => {
       });
 
       setRequestStatus('success');
+      setEnteredMessage('');
+      setEnteredEmail('');
+      setEnteredName('');
     } catch (error) {
       // @ts-ignore
       setRequestErrorMessage(error.message);

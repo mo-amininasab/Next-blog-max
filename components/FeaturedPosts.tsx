@@ -1,15 +1,19 @@
-import React from 'react'
+import React from 'react';
+
+import classes from './FeaturedPosts.module.css';
+import PostsGrid from './posts/PostsGrid';
 
 interface Props {
-  
+  posts: JSX.Element[];
 }
 
-const FeaturedPosts: React.FC<Props> = (props) => {
+const FeaturedPosts: React.FC<Props> = ({ posts }) => {
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <section className={classes.latest}>
+      <h2>Featured Posts</h2>
+      <PostsGrid posts={posts} />
+    </section>
+  );
+};
 
-export default FeaturedPosts
+export default FeaturedPosts;

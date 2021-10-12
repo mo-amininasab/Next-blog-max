@@ -1,6 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Notification from '../ui/notification';
 
 import classes from './ContactForm.module.css';
+
+const sendContactData = async (contactDetails: any) => {
+  const response = await fetch('/api/contact', {
+    method: 'POST',
+    body: JSON.stringify(contactDetails),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || 'Something went wrong!');
+  }
+};
 
 interface Props {}
 
@@ -8,24 +24,63 @@ const ContactForm: React.FC<Props> = (props) => {
   const [enteredEmail, setEnteredEmail] = useState('');
   const [enteredName, setEnteredName] = useState('');
   const [enteredMessage, setEnteredMessage] = useState('');
+  const [requestStatus, setRequestStatus] = useState<string | null>(null); // 'pending', 'success', 'error'
+  const [requestErrorMessage, setRequestErrorMessage] = useState<string | null>(
+    null
+  );
 
-  const sendMessageHandler = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (requestStatus === 'success' || requestStatus === 'error') {
+      const timer = setTimeout(() => {
+        setRequestStatus(null);
+        setRequestErrorMessage('');
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [requestStatus]);
+
+  const sendMessageHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Todo: client-side validation(optional)
 
-    fetch('/api/contact', {
-      method: 'POST',
-      body: JSON.stringify({
+    setRequestStatus('pending');
+    try {
+      await sendContactData({
         email: enteredEmail,
         name: enteredName,
         message: enteredMessage,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+      });
+
+      setRequestStatus('success');
+    } catch (error) {
+      // @ts-ignore
+      setRequestErrorMessage(error.message);
+      setRequestStatus('error');
+    }
   };
+
+  let notification;
+  if (requestStatus === 'pending') {
+    notification = {
+      status: 'pending',
+      title: 'Sending message...',
+      message: 'Your message is on its way!',
+    };
+  } else if (requestStatus === 'success') {
+    notification = {
+      status: 'success',
+      title: 'Success',
+      message: 'Message sent successfully!',
+    };
+  } else if (requestStatus === 'error') {
+    notification = {
+      status: 'error',
+      title: 'Error!',
+      message: requestErrorMessage,
+    };
+  }
 
   return (
     <section className={classes.contact}>
@@ -70,6 +125,14 @@ const ContactForm: React.FC<Props> = (props) => {
           <button>Send Message</button>
         </div>
       </form>
+
+      {notification && (
+        <Notification
+          message={notification.message}
+          status={notification.status}
+          title={notification.title}
+        />
+      )}
     </section>
   );
 };

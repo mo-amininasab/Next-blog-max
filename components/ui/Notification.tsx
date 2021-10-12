@@ -4,7 +4,7 @@ import classes from './Notification.module.css';
 
 interface Props {
   title: string;
-  message: string;
+  message: string | null;
   status: string;
 }
 

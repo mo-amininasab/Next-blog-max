@@ -1,57 +1,32 @@
-import { NextPage } from 'next';
+import { getFeaturedPosts } from '../lib/posts-util';
+
+import { NextPage, GetStaticProps } from 'next';
 import { Fragment } from 'react';
 import FeaturedPosts from '../components/FeaturedPosts';
 import Hero from '../components/Hero';
 
-interface Props {}
+interface Props {
+  posts: any[];
+}
 
-
-const DUMMY_POSTS = [
-  {
-    slug: 'getting-started-with-nextjs',
-    title: 'Getting Started with NextJs',
-    image: 'getting-started-nextjs.png',
-    excerpt:
-      'NextJS is a the React framework for production - it makes building fullstack React apps',
-    date: '2022-02-10',
-  },
-  {
-    slug: 'getting-started-with-nextjs2',
-    title: 'Getting Started with NextJs',
-    image: 'getting-started-nextjs.png',
-    excerpt:
-      'NextJS is a the React framework for production - it makes building fullstack React apps',
-    date: '2022-02-10',
-  },
-  {
-    slug: 'getting-started-with-nextjs3',
-    title: 'Getting Started with NextJs',
-    image: 'getting-started-nextjs.png',
-    excerpt:
-      'NextJS is a the React framework for production - it makes building fullstack React apps',
-    date: '2022-02-10',
-  },
-  {
-    slug: 'getting-started-with-nextjs4',
-    title: 'Getting Started with NextJs',
-    image: 'getting-started-nextjs.png',
-    excerpt:
-      'NextJS is a the React framework for production - it makes building fullstack React apps',
-    date: '2022-02-10',
-  },
-];
-
-const HomePage: NextPage<Props> = () => {
+const HomePage: NextPage<Props> = ({ posts }) => {
   return (
     <Fragment>
       <Hero />
-      <FeaturedPosts
-        posts={
-          DUMMY_POSTS
-        }
-      />
+      <FeaturedPosts posts={posts} />
     </Fragment>
   );
+};
+
+export const getStaticProps: GetStaticProps<Props> = async (context) => {
+  const featuredPosts = getFeaturedPosts();
+
+  return {
+    props: {
+      posts: featuredPosts,
+    },
+    // revalidate // ! no needed in this situation 
+  };
 };
 
 export default HomePage;

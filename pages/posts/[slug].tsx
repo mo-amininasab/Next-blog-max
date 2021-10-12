@@ -1,6 +1,10 @@
 import { getPostData, getPostsFiles } from '../../lib/posts-util';
 
+import React, { Fragment } from 'react';
 import { GetStaticProps, NextPage, GetStaticPaths } from 'next';
+// ! it's a super important page and SEs must know about this page.
+import Head from 'next/head';
+
 import PostContent from '../../components/posts/post-detail/PostContent';
 
 interface Props {
@@ -8,7 +12,15 @@ interface Props {
 }
 
 const PostDetailPage: NextPage<Props> = ({ post }) => {
-  return <PostContent post={post}/>;
+  return (
+    <Fragment>
+      <Head>
+        <title>{post.title}</title>
+        <meta name="description" content={post.excerpt} />
+      </Head>
+      <PostContent post={post} />
+    </Fragment>
+  );
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {

@@ -3,6 +3,8 @@ import Image from 'next/image';
 import PostHeader from './PostHeader';
 
 import ReactMarkdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 import classes from './PostContent.module.css';
 
@@ -37,7 +39,22 @@ const PostContent: React.FC<Props> = ({ post }) => {
       <ReactMarkdown
         children={content}
         // @ts-ignore
-        components={customRenderers}
+        components={{
+          code({ children, className }) {
+            let lang: string = 'js';
+            if (className === 'language-js') {
+              lang = 'js';
+            }
+
+            return (
+              <SyntaxHighlighter
+                style={atomDark}
+                language={lang}
+                children={children}
+              />
+            );
+          },
+        }}
       />
     </article>
   );

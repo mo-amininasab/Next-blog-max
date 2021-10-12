@@ -17,7 +17,7 @@ const PostContent: React.FC<Props> = ({ post }) => {
 
   const customRenderers = {
     // ! react-markdown will call this method, if it fiends an image in markdown content.
-    image(image: HTMLImageElement) {
+    img(image: HTMLImageElement) {
       console.log('from react-markdown', image.src);
 
       return (
@@ -34,7 +34,11 @@ const PostContent: React.FC<Props> = ({ post }) => {
   return (
     <article className={classes.content}>
       <PostHeader title={title} image={imagePath} />
-      <ReactMarkdown children={content} renderers={customRenderers} />
+      <ReactMarkdown
+        children={content}
+        // @ts-ignore
+        components={customRenderers}
+      />
     </article>
   );
 };
